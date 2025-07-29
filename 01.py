@@ -1,0 +1,37 @@
+import pandas as pd
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
+
+
+Tk().withdraw()
+file_path = askopenfilename(title="C:/Users/Aditya Pathak/empatheticdialogues.csv")
+
+try:
+    df = pd.read_csv(file_path)
+    print("✅ File loaded successfully.\nColumns found:", df.columns.tolist())
+except Exception as e:
+    print("❌ Error loading file:", e)
+    exit()
+
+
+required_columns = ['Situation', 'empathetic_dialogues']
+if not all(col in df.columns for col in required_columns):
+    print(f"❌ Required columns {required_columns} not found in the dataset.")
+    exit()
+
+
+user_bot_pairs = []
+
+for _, row in df.iterrows():
+    user = str(row['Situation']).strip()
+    bot = str(row['empathetic_dialogues']).strip()
+    if user and bot and user.lower() != "nan" and bot.lower() != "nan":
+        formatted_pair = f"User: {user}\nBot: {bot}"
+        user_bot_pairs.append(formatted_pair)
+
+
+output_file = "mental_health_chat_data.txt"
+with open(output_file, "w", encoding="utf-8") as f:
+    f.write("\n\n".join(user_bot_pairs))
+
+print(f"✅ Preprocessing complete! Saved to: {output_file}")
