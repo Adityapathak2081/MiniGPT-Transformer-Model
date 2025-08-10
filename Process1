@@ -8,15 +8,15 @@ file_path = askopenfilename(title="C:/Users/Aditya Pathak/empatheticdialogues.cs
 
 try:
     df = pd.read_csv(file_path)
-    print("✅ File loaded successfully.\nColumns found:", df.columns.tolist())
+    print(" File loaded successfully.\nColumns found:", df.columns.tolist())
 except Exception as e:
-    print("❌ Error loading file:", e)
+    print(" Error loading file:", e)
     exit()
 
 
 required_columns = ['Situation', 'empathetic_dialogues']
 if not all(col in df.columns for col in required_columns):
-    print(f"❌ Required columns {required_columns} not found in the dataset.")
+    print(f" Required columns {required_columns} not found in the dataset.")
     exit()
 
 
@@ -34,4 +34,5 @@ output_file = "mental_health_chat_data.txt"
 with open(output_file, "w", encoding="utf-8") as f:
     f.write("\n\n".join(user_bot_pairs))
 
-print(f"✅ Preprocessing complete! Saved to: {output_file}")
+print(f" Preprocessing complete! Saved to: {output_file}")
+
